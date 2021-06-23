@@ -1,5 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Look at your fire profile</h1>
+    <div class="vidcontainer">
+        <h1>Let's party Chicago-style because you made a profile!!! </h1>
+        <p>but not chicago style because nobody pukes green beer into the chicago river</p>
+        <br>
+        <p>scroll down for the token, Ryan</p>
+    <video width="576" height="1024" controls>
+        <source src="../../static/images/v09044c10000c15khvqo6r9cbb3ov6hg.mp4" type="video/mp4">
+    </video>
+    </div>
+
+    <header class="hero-section">
+        <h3 class="header-text">Welcome to Fire stuff! You are on fire, {{ current_user.email }}!</h3>
+    </header>
+
+
+    
+    <div class="container">
+        <h3>Here are your profile details</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Email: {{ current_user.email }}</li>
+            <li class="list-group-item">Token: {{ current_user.token }} </li>
+            
+             <!--TODO: Add Access Key-->
+            
+        </ul>
+    </div>
 {% endblock %}
