@@ -27,7 +27,6 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150), nullable = True, default = '')
     email = db.Column(db.String(150), nullable = False)
     password = db.Column(db.String, nullable = True, default = '')
-    # Unsure what the purpose of line 30 is
     g_auth_verify = db.Column(db.Boolean, default = False)
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
@@ -47,7 +46,6 @@ class User(db.Model, UserMixin):
     def set_id(self):
         return str(uuid.uuid4())
     
-    # Would love more info about this as well
     def set_password(self, password):
         self.pw_hash = generate_password_hash(password)
         return self.pw_hash
