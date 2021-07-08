@@ -18,11 +18,11 @@ def create_car(current_user_token):
     instrumentname = request.json['instrumentname']
     instrumentmodel = request.json['instrumentmodel']
     instrumentbrand = request.json['instrumentbrand']
-    # user_token = current_user_token.token
+    user_token = current_user_token.token
 
-    # print(f'BIG TESTER: {current_user_token.token}')
+    print(f'BIG TESTER: {current_user_token.token}')
 
-    instrument = Instrument(instrumentid, name, description, price, instrumentname, instrumentmodel, instrumentbrand) # user_token = user_token )
+    instrument = Instrument(instrumentid, name, description, price, instrumentname, instrumentmodel, instrumentbrand, user_token = user_token)
 
     db.session.add(instrument)
     db.session.commit()
@@ -40,11 +40,11 @@ def get_instrument(current_user_token):
 
 @api.route('/cars/<id>', methods = ['GET'])
 @token_required
-def get_car_two(current_user_token, id):
+def get_instruments_two(current_user_token, id):
     owner = current_user_token.token
     if owner == current_user_token.token:
-        car = Car.query.get(id)
-        response = car_schema.dump(car)
+        instrument = Instrument.query.get(id)
+        response = instrument_schema.dump(instrument)
         return jsonify(response)
     else:
         return jsonify({"message": "Valid Token Required"}),401
