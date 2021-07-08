@@ -59,29 +59,20 @@ class Car(db.Model):
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
     price = db.Column(db.Numeric(precision=10,scale=2))
-    engine_size = db.Column(db.String(150), nullable = True)
-    transmission = db.Column(db.String(100), nullable = True)
-    max_speed = db.Column(db.String(100))
-    dimensions = db.Column(db.String(100))
-    weight = db.Column(db.String(50))
-    cost_of_prod = db.Column(db.Numeric(precision=10, scale=2))
-    gas_mileage = db.Column(db.String(150))
+    instrumentname = db.Column(db.String(150), nullable = True)
+    instrumentbrand = db.Column(db.String(150), nullable = True)
+    instrumentmodel = db.Column(db.String(150), nullable = True)
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self,name,description,price, engine_size,transmission,max_speed,dimensions, weight,cost_of_prod,gas_mileage,user_token, id = ''):
+    def __init__(self, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token, id=''):
         self.id = self.set_id()
         self.name = name
         self.description = description
         self.price = price
-        self.engine_size = engine_size
-        self.transmission = transmission
-        self.max_speed = max_speed
-        self.dimensions = dimensions
-        self.weight = weight
-        self.cost_of_prod = cost_of_prod
-        self.gas_mileage = gas_mileage
+        self.instrumentname = instrumentname
+        self.instrumentbrand = instrumentbrand
+        self.instrumentmodel = instrumentmodel
         self.user_token = user_token
-
 
     def __repr__(self):
         return f'The following vehicle has been added to the collection: {self.name}'
