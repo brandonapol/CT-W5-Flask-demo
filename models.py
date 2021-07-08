@@ -64,8 +64,8 @@ class Car(db.Model):
     instrumentmodel = db.Column(db.String(150), nullable = True)
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token, id=''):
-        self.id = self.set_id()
+    def __init__(self, id, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token):
+        self.id = id
         self.name = name
         self.description = description
         self.price = price
@@ -81,7 +81,7 @@ class Car(db.Model):
         return (secrets.token_urlsafe())
 
 class Instrument(db.Model):
-    id = db.Column(db.String, primary_key = True)
+    instrumentid = db.Column(db.String, primary_key = True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
     price = db.Column(db.Numeric(precision=10,scale=2))
@@ -90,8 +90,8 @@ class Instrument(db.Model):
     instrumentmodel = db.Column(db.String(150), nullable = True)
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token, id=''):
-        self.id = self.set_id()
+    def __init__(self, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token, instrumentid=''):
+        self.instrumentid = instrumentid #FIX ME
         self.name = name
         self.description = description
         self.price = price

@@ -11,17 +11,18 @@ def getdata():
 @api.route('/cars', methods = ['POST'])
 @token_required
 def create_car(current_user_token):
+    instrumentid = request.form.get('instrumentid')
     name = request.json['name']
     description = request.json['description']
     price = request.json['price']
     instrumentname = request.json['instrumentname']
     instrumentmodel = request.json['instrumentmodel']
     instrumentbrand = request.json['instrumentbrand']
-    user_token = current_user_token.token
+    # user_token = current_user_token.token
 
-    print(f'BIG TESTER: {current_user_token.token}')
+    # print(f'BIG TESTER: {current_user_token.token}')
 
-    instrument = Car(name, description, price, instrumentname, instrumentmodel, instrumentbrand, user_token = user_token )
+    instrument = Instrument(instrumentid, name, description, price, instrumentname, instrumentmodel, instrumentbrand) # user_token = user_token )
 
     db.session.add(instrument)
     db.session.commit()
