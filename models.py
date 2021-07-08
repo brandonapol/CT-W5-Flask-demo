@@ -100,7 +100,7 @@ class Instrument(db.Model):
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
     def __init__(self, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token, id=''):
-        self.id = id()
+        self.id = self.set_id()
         self.name = name
         self.description = description
         self.price = price
