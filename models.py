@@ -89,6 +89,32 @@ class Car(db.Model):
     def set_id(self):
         return (secrets.token_urlsafe())
 
+class Instrument(db.Model):
+    id = db.Column(db.String, primary_key = True)
+    name = db.Column(db.String(150))
+    description = db.Column(db.String(200), nullable = True)
+    price = db.Column(db.Numeric(precision=10,scale=2))
+    instrumentname = db.Column(db.String(150), nullable = True)
+    instrumentbrand = db.Column(db.String(150), nullable = True)
+    instrumentmodel = db.Column(db.String(150), nullable = True)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+
+    def __init__(self, name, description, price, instrumentname, instrumentbrand, instrumentmodel, user_token, id=''):
+        self.id = id()
+        self.name = name
+        self.description = description
+        self.price = price
+        self.instrumentname = instrumentname
+        self.instrumentbrand = instrumentbrand
+        self.instrumentmodel = instrumentmodel
+        self.user_token = user_token
+    
+    def __repr__(self):
+        return f'The following instrument has been added to the collection: {self.name}'
+
+    def set_id(self):
+        return (secrets.token_urlsafe())
+
 # Creation of API Schema via the Marshmallow object 
 class CarSchema(ma.Schema):
     class Meta:
@@ -96,3 +122,10 @@ class CarSchema(ma.Schema):
 
 car_schema = CarSchema()
 cars_schema = CarSchema(many=True)
+
+class InstrumentSchema(ma.Schema):
+    class Meta:
+        fields = ['id', 'name','description', 'price', 'instrumentname', 'instrumentbrand', 'instrumentmodel']
+
+instrument_schema = InstrumentSchema()
+instruments_schema = InstrumentSchema(many=True)

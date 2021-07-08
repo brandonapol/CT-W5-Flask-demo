@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from helpers import token_required
-from models import db, User, Car, car_schema, cars_schema
+from models import db, User, Car, Instrument, car_schema, cars_schema
 
 api = Blueprint('api',__name__, url_prefix='/api')
 
@@ -14,31 +14,27 @@ def create_car(current_user_token):
     name = request.json['name']
     description = request.json['description']
     price = request.json['price']
-    engine_size = request.json['engine_size']
-    transmission = request.json['transmission']
-    max_speed = request.json['max_speed']
-    dimensions = request.json['dimensions']
-    weight = request.json['weight']
-    cost_of_prod = request.json['cost_of_prod']
-    gas_mileage = request.json['gas_mileage']
+    instrumentname = request.json['instrumentname']
+    instrumentmodel = request.json['instrumentmodel']
+    instrumentbrand = request.json['instrumentbrand']
     user_token = current_user_token.token
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    car = Car(name, description, price, engine_size, transmission, max_speed, dimensions, weight, cost_of_prod, gas_mileage, user_token = user_token )
+    instrument = Instrument(name, description, price, instrumentname, instrumentmodel, instrumentbrand, user_token = user_token )
 
-    db.session.add(car)
+    db.session.add(instrument)
     db.session.commit()
 
-    response = car_schema.dump(car)
+    response = car_schema.dump(instrument)
     return jsonify(response)
 
 @api.route('/cars', methods = ['GET'])
 @token_required
-def get_car(current_user_token):
+def get_instrument(current_user_token):
     owner = current_user_token.token
-    cars = Car.query.filter_by(user_token = owner).all()
-    response = cars_schema.dump(cars)
+    instruments = Instrument.query.filter_by(user_token = owner).all()
+    response = cars_schema.dump(instruments)
     return jsonify(response)
 
 @api.route('/cars/<id>', methods = ['GET'])
