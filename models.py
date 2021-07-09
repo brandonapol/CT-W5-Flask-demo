@@ -41,7 +41,7 @@ class User(db.Model, UserMixin):
         self.g_auth_verify = g_auth_verify
 
     def set_token(self, length):
-        return secrets.token_hex()
+        return secrets.token_hex(length)
 
     def set_id(self):
         return str(uuid.uuid4())

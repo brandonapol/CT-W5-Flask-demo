@@ -21,6 +21,8 @@ def create_car(current_user_token):
     user_token = current_user_token.token
 
     print(f'BIG TESTER: {current_user_token.token}')
+    print(user_token)
+    print(current_user_token)
 
     instrument = Instrument(instrumentid, name, description, price, instrumentname, instrumentmodel, instrumentbrand, user_token = user_token)
 
@@ -50,25 +52,25 @@ def get_instruments_two(current_user_token, id):
         return jsonify({"message": "Valid Token Required"}),401
 
 # UPDATE endpoint
-@api.route('/cars/<id>', methods = ['POST','PUT'])
-@token_required
-def update_car(current_user_token,id):
-    car = Car.query.get(id) 
-    car.name = request.json['name']
-    car.description = request.json['description']
-    car.price = request.json['price']
-    car.engine_size = request.json['engine_size']
-    car.transmission = request.json['transmission']
-    car.max_speed = request.json['max_speed']
-    car.dimensions = request.json['dimensions']
-    car.weight = request.json['weight']
-    car.cost_of_prod = request.json['cost_of_prod']
-    car.gas_mileage = request.json['gas_mileage']
-    car.user_token = current_user_token.token
+# @api.route('/cars/<id>', methods = ['POST','PUT'])
+# @token_required
+# def update_car(current_user_token,id):
+#     car = Car.query.get(id) 
+#     car.name = request.json['name']
+#     car.description = request.json['description']
+#     car.price = request.json['price']
+#     car.engine_size = request.json['engine_size']
+#     car.transmission = request.json['transmission']
+#     car.max_speed = request.json['max_speed']
+#     car.dimensions = request.json['dimensions']
+#     car.weight = request.json['weight']
+#     car.cost_of_prod = request.json['cost_of_prod']
+#     car.gas_mileage = request.json['gas_mileage']
+#     car.user_token = current_user_token.token
 
-    db.session.commit()
-    response = car_schema.dump(car)
-    return jsonify(response)
+#     db.session.commit()
+#     response = car_schema.dump(car)
+#     return jsonify(response)
 
 
 # DELETE car ENDPOINT
